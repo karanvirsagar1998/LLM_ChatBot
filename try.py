@@ -1,7 +1,14 @@
-# Use a pipeline as a high-level helper
 from transformers import pipeline
+from langchain.llms import HuggingFacePipeline
 
-pipe = pipeline("text-generation", model="EleutherAI/gpt-j-6b")
+hf_pipeline = pipeline("text2text-generation", model="google/flan-t5-large")
+llm = HuggingFacePipeline(pipeline=hf_pipeline)
 
-print(pipe("What is the capital of India?"))
- 
+from langchain_community.llms import HuggingFacePipeline #for hugging face models
+from langchain.schema import HumanMessage, SystemMessage, AIMessage
+Chatllm = HuggingFacePipeline(pipeline=hf_pipeline)
+
+Chatllm([
+    SystemMessage(content="You are a comedican AI assistant"),
+    HumanMessage(content="Please make some jokes on AI")
+])
