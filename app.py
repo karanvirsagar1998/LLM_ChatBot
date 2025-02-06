@@ -1,5 +1,5 @@
 from transformers import pipeline
-from langchain.llms import HuggingFacePipeline
+from langchain_huggingface import HuggingFacePipeline
 hf_pipeline = pipeline("text2text-generation", model="google/flan-t5-large")
 from langchain.schema import HumanMessage, SystemMessage
 
@@ -12,7 +12,7 @@ def get_response(content:str):
     HumanMessage.content = content
     llm = HuggingFacePipeline(pipeline=hf_pipeline)
     question = "/n".join([SystemMessage.content,HumanMessage.content])
-    response = llm(question)
+    response = llm.invoke(question)
     return response
 
 # front-end #streamlit
